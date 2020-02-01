@@ -1,0 +1,39 @@
+.contenedor{
+  /*max-width: 800px;*/
+  /*margin: 0 auto;*/
+  /*padding: 1rem;*/
+  /*border: 1px solid #aaa;*/
+}
+#datatable_lamina {
+  table-layout: fixed;
+  width: 100% !important;
+}
+#datatable_lamina /*th,
+#datatable_lamina*/ td{
+  width: auto !important;
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#datatable_producto {
+  table-layout: fixed;
+  width: 100% !important;
+}
+#datatable_producto /*th,
+#datatable_lamina*/ td{
+  width: auto !important;
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#datatable_producto_historial {
+  table-layout: fixed;
+  width: 100% !important;
+}
+#datatable_producto_historial /*th,
+#datatable_lamina*/ td{
+  width: auto !important;
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
