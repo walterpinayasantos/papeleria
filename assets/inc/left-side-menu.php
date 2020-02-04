@@ -15,15 +15,12 @@
                                 </a>
                             </li> -->
                             
-                            
-
-                            <li>
+                            <!-- <li>
                                 <a href="asistencia.php">
                                     <i class="dripicons-clock"></i> <span> Control de Asistencia </span>
                                 </a>
-                            </li>
-                             
-
+                            </li> -->
+                            
                             <li>
                                 <a href="javascript: void(0);">
                                     <i class="dripicons-store"></i>
