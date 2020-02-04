@@ -319,7 +319,7 @@
         <!-- App js -->
         <script src="assets/js/app.min.js"></script>
         
-        <!-- Calcula el precio de venta unitario DaDo la cantidad y precio de compra EN el formualrio de REGISTRO -->
+        <!-- Calcula el precio de venta unitario Dado la cantidad y precio de compra EN el formualrio de REGISTRO -->
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#c_precio").keyup(function () {
@@ -330,7 +330,7 @@
                 });
             });
         </script>
-        <!-- Calcula el precio de venta unitario DaDo la cantidad y precio de compra En el formulario de ABASTECER-->
+        <!-- Calcula el precio de venta unitario Dado la cantidad y precio de compra En el formulario de ABASTECER-->
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#a_precio").keyup(function () {

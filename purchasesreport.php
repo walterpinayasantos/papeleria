@@ -25,8 +25,8 @@
         <!-- JQuery UI -->
         <link href="assets/libs/jquery-ui/themes/dark-hive/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 
-        <!-- Funciones para el CRUD para el PUNTO DE VENTA de la Papeleria -->
-        <script src="assets/js/crud/crud_salesreport.js"></script>
+        <!-- Funciones para el CRUD para los reportes de COMPRA -->
+        <script src="assets/js/crud/crud_purchasesreport.js"></script>
 
     </head>
 
@@ -75,7 +75,6 @@
                         ===========================================-->
                         <div class="row">
                             <div class="col-lg-12">
-
                                 <div class="card-box">
                                     <!-- <h4 class="header-title mb-4">Default Tabs</h4> -->
                                     <ul class="nav nav-tabs navtab-bg nav-justified">
@@ -108,7 +107,7 @@
                                                         <label class="mb-2 mr-sm-2">REPORTE DEL DIA :</label>
                                                         <input type="date" class="form-control mb-2 mr-sm-2" id="fecha_dia" value="<?php echo date("Y-m-d"); ?>">
                                                         
-                                                        <button type="button" class="btn btn-primary mb-2" id="button_dia">GENERAR REPORTE</button>
+                                                        <button type="button" class="btn btn-primary mb-2" id="button_compra_dia">GENERAR REPORTE</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -161,7 +160,7 @@
                                                         </select>
                                                         <label class="mb-2 mr-sm-2">DEL AÑO :</label>
                                                         <input type="number" class="form-control mb-2 mr-sm-2" min="2018" step="1" id="numero_anio" value="<?php echo date("Y");?>">
-                                                        <button type="button" id="button_mes" class="btn btn-primary mb-2">GENERAR REPORTE</button>
+                                                        <button type="button" id="button_compra_mes" class="btn btn-primary mb-2">GENERAR REPORTE</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -176,7 +175,7 @@
                                                     <form class="form-inline">
                                                         <label class="mb-2 mr-sm-2">REPORTE DEL AÑO :</label>
                                                         <input type="number" class="form-control mb-2 mr-sm-2" id="numero_year" min="2018" step="1" value="<?php echo date("Y"); ?>">
-                                                        <button type="button" id="button_anio" class="btn btn-primary mb-2">GENERAR REPORTE</button>
+                                                        <button type="button" id="button_compra_anio" class="btn btn-primary mb-2">GENERAR REPORTE</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -189,26 +188,45 @@
                                 </div><!-- end card-box-->
                             </div>
 
-
-                            <!--======================================================================
-                            =   MODAL PARA VER EL DETALLE DE TODAS LAS VENTAS DE UN DETERMINADO DIA  =
-                            =======================================================================-->
-                            <div id="modal_detalle_dia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
+                            <!-- MODAL PARA LA ACTUALIZACION DE UNA COMPRA -->
+                            <div id="modal_actualizar_compra" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-md">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="myModalLabel">DETALLE DE VENTAS DEL DIA : 
-                                                <span id="literal_dia_detalle">    
-                                                </span>
-                                            </h5>
+                                            <h4 class="modal-title" id="myModalLabel">Actualizar Datos de la compra</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="row" id="tabla_dia_detalle">
-
-                                            </div>
+                                            <form class="form-horizontal" role="form" id="formulario_actualizar_compra">
+                                                <div class="form-row">
+                                                    <input type="text" name="" class="form-control form-control-md" id="comp_id">
+                                                    <div class="form-group col-md-12">
+                                                        <label class="col-form-label">Producto</label>
+                                                        <input type="text" class="form-control form-control-md" id="u_nombre" readonly>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label class="col-form-label">Detalle</label>
+                                                        <input type="text" class="form-control form-control-md" id="u_detalle">
+                                                    </div>                                              
+                                                    <div class="form-group col-lg-4">
+                                                        <label class="col-form-label">Cantidad</label>
+                                                        <input type="number" min="0" class="form-control form-control-md" id="u_cantidad">
+                                                    </div>
+                                                    <div class="form-group col-lg-4">
+                                                        <label class="col-form-label">SubTotal(Bs)</label>
+                                                        <input type="number" min="0" class="form-control form-control-md" id="u_subtotal">
+                                                    </div>
+                                                    <div class="form-group col-lg-4">
+                                                        <label class="col-form-label">P.Unitario(Bs)</label>
+                                                        <input type="number" min="0" class="form-control form-control-md" id="u_punitario">
+                                                    </div>                                          
+                                                </div>
+                                            </form>
                                         </div>
-                                        <!-- <div class="modal-footer"></div> -->
+                                        <div class="modal-footer">
+                                                <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" id="update_compra">Actualizar Registro</button>
+                                        </div>
                                     </div><!-- /.modal-content -->
                                 </div><!-- /.modal-dialog -->
                             </div><!-- /.modal -->
@@ -274,27 +292,42 @@
             //CUANDO DAMOS CLICK EN EL BOTON PARA GENERAR INFORME POR DIA SEMANA MES Y AÑO
             //LOS BOTONES TIENEN IDs, dia, semana, mes, anio
             $(document).ready(function(){
-                $('#button_dia').click(function(){
+                $('#button_compra_dia').click(function(){
                 fecha=$('#fecha_dia').val();        
-                ReporteDia(fecha);
+                ReporteCompraDia(fecha);
                });
             });
             //ENVIAMOS DATOS PARA QUE SE GUARDEN EN LA TABLA CONFIGURACION, PARA QUE LUEGO
             //SE USE EN LA CONSULTA PARA LA TABLA DE VENTAS DEL MES
             $(document).ready(function(){
-                $('#button_mes').click(function(){
+                $('#button_compra_mes').click(function(){
                 mes = $('#numero_mes').val();
                 anio = $('#numero_anio').val();        
-                ReporteMes(mes,anio);
+                ReporteCompraMes(mes,anio);
                });
             });
             //ENVIAMOS EL AÑO A LA TABLA CONFIGURACION
             $(document).ready(function(){
-                $('#button_anio').click(function(){
+                $('#button_compra_anio').click(function(){
                 numero=$('#numero_year').val();        
-                ReporteAnual(numero);
+                ReporteCompraAnual(numero);
                });
             });
+
+            //Calcula el precio de venta unitario Dado la cantidad y precio de compra EN el formualrio de EDICION DE COMPRA
+            $(document).ready(function () {
+                $("#u_subtotal").keyup(function () {
+                    var cantidad = document.getElementById("u_cantidad").value;
+                    var precio = $(this).val();
+                    var resultado = (parseFloat(precio) / parseFloat(cantidad)).toFixed(2);
+                    document.getElementById("u_punitario").value = resultado;
+                });
+            });
+            //ACTUALIZAMOS DATOS DE LA COMPRA DEL PRODUCTO
+            $('#update_compra').click(function(){
+                ActualizarCompra();
+            });
+
 
         </script>
     </body>
